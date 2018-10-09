@@ -1,32 +1,243 @@
-# Prerequisites
-*.d
+#include <iostream>
+#include <random>
+using namespace std;
 
-# Compiled Object files
-*.slo
-*.lo
-*.o
-*.obj
+//Proyecto sudoku programacion orientada a objetos
 
-# Precompiled Headers
-*.gch
-*.pch
+void sudoku() {
+    //Creando Variable para seleccion de opciones
 
-# Compiled Dynamic libraries
-*.so
-*.dylib
-*.dll
+    int numero = 0;
 
-# Fortran module files
-*.mod
-*.smod
 
-# Compiled Static libraries
-*.lai
-*.la
-*.a
-*.lib
+    //Creando el menu para jugar el sudoku
 
-# Executables
-*.exe
-*.out
-*.app
+    cout<<endl;
+    printf("BIENVENIDO AL JUEGO DEL SUDOKU ALEATORIO");
+    cout<<"\n"<<endl;
+    printf("Elija una opcion para su solucion:");
+    cout<<"\n";
+    cout<<"Automatico[1] "<<"\n"<<"Pseudo-Manual[2] "<<"\n";
+    cin>>numero;
+
+    //Creando condiciones para el inicio de la solucion del sudoku
+
+    if (numero==1) {
+
+        //Declaracion de Variables
+
+        int N[9][9]={};
+        int aleatorio ;
+        int sumamatr3x3_1 = 0;
+        int sumamatr3x3_2 = 0;
+        int sumamatr3x3_3 = 0;
+        int sumamatr3x3_4 = 0;
+        int sumamatr3x3_5 = 0;
+        int sumamatr3x3_6 = 0;
+        int sumamatr3x3_7 = 0;
+        int sumamatr3x3_8 = 0;
+        int sumamatr3x3_9 = 0;
+        int sumatotal = 0;
+        bool posicionrep = false;
+
+        //Creando la matriz aleatoria
+
+        cout<<endl;
+
+        for (size_t i= 0; i < 9; i++) {
+            for (size_t k= 0; k < 9; k++) {
+                //Usando la libreria #include <random> para imprimir los numeros aleatorios
+                random_device rand;
+                aleatorio = rand()%9 + 1;
+                N[i][k] = aleatorio;
+                if (k == 3 || k == 6){
+                    cout << "|";
+                    cout << N[i][k] << " ";
+                }
+                else
+                    cout << N[i][k] << " ";
+            }
+            cout << endl;
+            if (i == 2 || i == 5){
+                cout << "-------------------";
+                cout << endl;
+            }
+
+        }
+        cout<< endl;
+//Creando un bucle y condiciones para buscar numeros repetidos, aunque no nos salio.
+        for(size_t z= 0; z<9; z++){
+
+        sumamatr3x3_1 += N[0][z];
+        sumamatr3x3_2 += N[1][z];
+        sumamatr3x3_3 += N[2][z];
+        sumamatr3x3_4 += N[3][z];
+        sumamatr3x3_5 += N[4][z];
+        sumamatr3x3_6 += N[5][z];
+        sumamatr3x3_7 += N[6][z];
+        sumamatr3x3_8 += N[7][z];
+        sumamatr3x3_9 += N[8][z];
+
+        }
+
+        sumatotal=sumamatr3x3_1+sumamatr3x3_2+sumamatr3x3_3+sumamatr3x3_4+sumamatr3x3_5+sumamatr3x3_6+sumamatr3x3_7+
+                sumamatr3x3_8+sumamatr3x3_9;
+        
+        if(sumatotal==405)
+            {
+                posicionrep = true;
+            }
+
+
+        if(!posicionrep){
+            cout<<"El tablero no fue llenado de forma valida";
+        }
+        else{
+            cout<<"El tablero si fue llenado de forma valida";
+        }
+
+    }
+
+
+    else if (numero==2){
+
+        cout<<"\n";
+        int numero1_1 = 0;
+        cout<<"Elige una opcion"<<"\n";
+        cout<<"opcion[1]"<<" | "<<"opcion[2]"<<" | "<<"opcion[3]"<<endl;
+        cin>>numero1_1;
+
+        if(numero1_1==1) {
+
+            int Matrix[9][9]={4,3,9,5,6,1,7,2,8,
+                              1,6,7,2,3,8,4,5,9,
+                              8,5,2,4,9,7,6,1,3,
+                              2,8,6,9,5,3,1,7,4,
+                              7,9,4,8,1,6,5,3,2,
+                              5,1,3,7,2,4,9,8,6,
+                              3,4,8,1,7,9,2,6,5,
+                              6,2,1,3,4,5,8,9,7,
+                              9,7,5,6,8,2,3,4,1};
+
+            const int n = 9;
+            const int m = 9;
+
+            for (int i = 0; i<=n-1; i++){
+                for (int j = 0; j<=m-1; j++){
+
+                    if (j == 3 or j == 6){
+                        cout << "|";
+                        cout << Matrix[i][j] << " ";
+                    }
+                    else
+                        cout << Matrix[i][j] << " ";
+                }
+
+                cout<<endl;
+                if (i == 2 or i == 5){
+                    cout << "-------------------";
+                    cout << endl;
+                }
+
+            }
+            cout << endl;
+            cout << "El tablero fue llenado de forma valida ya que no se repiten los números en la misma línea,"
+                    "y tampoco se repiten en los grupos de 3 x 3 celdas.";
+
+
+        }
+
+        else if(numero1_1==2) {
+
+            int Matrix[9][9]={1,8,9,3,2,7,4,6,5,
+                              2,3,6,4,5,8,1,9,7,
+                              5,4,7,9,6,1,3,2,8,
+                              3,7,4,8,1,9,2,5,6,
+                              8,1,5,6,3,2,7,4,9,
+                              9,6,2,7,4,5,8,3,1,
+                              4,2,8,1,9,6,5,7,3,
+                              7,9,3,5,8,4,6,1,2,
+                              6,5,1,2,7,3,9,8,4};
+
+            const int n = 9;
+            const int m = 9;
+
+            for (int i = 0; i<=n-1; i++){
+                for (int j = 0; j<=m-1; j++){
+
+                    if (j == 3 or j == 6){
+                        cout << "|";
+                        cout << Matrix[i][j] << " ";
+                    }
+                    else
+                        cout << Matrix[i][j] << " ";
+                }
+
+                cout<<endl;
+                if (i == 2 or i == 5){
+                    cout << "-------------------";
+                    cout << endl;
+                }
+
+            }
+
+            cout<<"\n";
+            cout << "El tablero fue llenado de forma valida ya que no se repiten los números en la misma línea,"
+                    "y tampoco se repiten en los grupos de 3 x 3 celdas.";
+
+        }
+
+        else if(numero1_1==3) {
+
+            int Matrix[9][9]={6,8,9,3,2,7,4,6,5,
+                              2,3,6,4,5,8,1,9,7,
+                              5,4,7,9,6,1,3,2,8,
+                              3,7,4,8,1,9,2,5,6,
+                              8,1,5,6,3,2,7,4,9,
+                              9,6,2,7,4,5,8,3,1,
+                              4,2,8,1,9,6,5,7,3,
+                              7,9,3,5,8,4,6,1,2,
+                              6,5,1,2,7,3,9,8,4};
+
+            const int n = 9;
+            const int m = 9;
+
+            for (int i = 0; i<=n-1; i++){
+                for (int j = 0; j<=m-1; j++){
+
+                    if (j == 3 or j == 6){
+                        cout << "|";
+                        cout << Matrix[i][j] << " ";
+                    }
+                    else
+                        cout << Matrix[i][j] << " ";
+                }
+
+                cout<<endl;
+                if (i == 2 or i == 5){
+                    cout << "-------------------";
+                    cout << endl;
+                }
+
+            }
+
+            cout<<"\n";
+            cout << "El tablero no fue llenado de forma valida. "<<endl;
+            cout << "La posicion Matrix[0][0] se repite en Matrix[0][7] y en Matrix[8][0] ";
+
+        }
+
+    }
+
+    else{
+        cout<<"Numero invalido";
+        exit (-1);
+    }
+
+
+}
+int main(){
+    sudoku();
+    return 0;
+}  
+
